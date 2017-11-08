@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "A tool for make vscode snippets doc.",
   "main": "index.js",
+  "files": [
+    "index.js",
+    "bin"
+  ],
   "bin": "./bin/make",
   "scripts": {},
   "author": "",
