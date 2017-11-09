@@ -29,7 +29,8 @@ function genSnippetDoc (info, config) {
       let body = ''
       for (let line of snippet.body) {
         body += _.escape(line
-          .replace(/(\$\d+)|(?:\$\{\d+(?:|(?::|\|)([^{]+?))})/g, '`|$2`'))
+          .replace(/(\$\d+)|(?:\$\{\d+(?:|(?::|\|)([^{]+?))})/g, '`|``$2`'))
+          .replace(/`\|`/g, '<code>&#124;</code>')
           .replace(/``/g, '')
           .replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;') + '<br />'
       }
