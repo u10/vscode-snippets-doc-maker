@@ -21,8 +21,7 @@ function genSnippetDoc (info, config) {
     doc += '| Prefix | Snippet Content |\n'
     doc += '| --- | --- |\n'
     if (config.sortSnippetsByPrefix) {
-      snippets.sort((a ,b) => {
-        console.log(a.prefix, b.prefix, a.prefix > b.prefix)
+      snippets.sort((a, b) => {
         return a.prefix > b.prefix ? 1 : -1
       })
     }
