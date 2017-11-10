@@ -12,6 +12,12 @@ function resolve (file) {
   return path.resolve(contextPath, file)
 }
 
+const REPLACE_MAPPING = {
+  '<': '&lt;',
+  '>': '&gt;',
+  '\t': '&nbsp;&nbsp;&nbsp;&nbsp;'
+}
+
 function genSnippetDoc (info, config) {
   if (_.isString(info)) {
     return `${info}\n`
@@ -28,11 +34,15 @@ function genSnippetDoc (info, config) {
     for (let snippet of snippets) {
       let body = ''
       for (let line of snippet.body) {
-        body += _.escape(line
-          .replace(/(\$\d+)|(?:\$\{\d+(?:|(?::|\|)([^{]+?))})/g, '`|``$2`'))
-          .replace(/`\|`/g, '<code>&#124;</code>')
-          .replace(/``/g, '')
-          .replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;') + '<br />'
+        body += line
+          .replace(/(<|>|\t)|((?:\$\d+)|(?:\$\{\d+(?:|(?::|\|)([^{]+?))}))/g, (matched, g1, g2, g3) => {
+            let ret = REPLACE_MAPPING[g1]
+            if (g2) {
+              ret = `<code>&#124;</code>\`\`${g3 || ''}\`\``
+            }
+            return ret
+          })
+          .replace(/````/g, '') + '<br />'
       }
       doc += `|\`${snippet.prefix}\`|${body}|\n`
     }
