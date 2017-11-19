@@ -1,6 +1,6 @@
 {
   "name": "vscode-snippets-doc-maker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A tool for make vscode snippets doc.",
   "main": "index.js",
   "files": [
