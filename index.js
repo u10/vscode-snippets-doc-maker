@@ -15,8 +15,7 @@ function resolve (file) {
 const REPLACE_MAPPING = {
   '<': '&lt;',
   '>': '&gt;',
-  '\t': '&nbsp;&nbsp;&nbsp;&nbsp;',
-  '\n': '\\n'
+  '\t': '&nbsp;&nbsp;&nbsp;&nbsp;'
 }
 
 function genSnippetDoc (info, config) {
@@ -36,7 +35,7 @@ function genSnippetDoc (info, config) {
       let body = ''
       for (let line of snippet.body) {
         body += line
-          .replace(/(<|>|\t|\n)|((?:\$\d+)|(?:\$\{\d+(?:|(?::|(\|))([^{]+?))\3}))/g, (matched, g1, g2, g3, g4) => {
+          .replace(/(<|>|\t)|((?:\$\d+)|(?:\$\{\d+(?:|(?::|(\|))([^{]+?))\3}))/g, (matched, g1, g2, g3, g4) => {
             let ret = REPLACE_MAPPING[g1]
             if (g2) {
               ret = `<code>&#124;</code>\`\`${g4 ? (g3 ? `[${g4}]`: g4) : ''}\`\``
